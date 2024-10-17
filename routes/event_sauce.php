@@ -10,7 +10,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 
-
 Route::get('/eventsauce/contact/{contact_id}', function (string $contact_id, ContactRepository $contactRepository, MessageRepository $messageRepository) {
 
     try {
@@ -23,10 +22,6 @@ Route::get('/eventsauce/contact/{contact_id}', function (string $contact_id, Con
 
     return view('eventsauce_contact', ['contact' => $contact, 'events' => $events]);
 });
-
-
-
-
 
 
 Route::post('/eventsauce/contact/{contact_id}', function (string $contact_id, Request $request, ContactRepository $contactRepository) {
