@@ -16,12 +16,14 @@ class Contact implements AggregateRoot
 {
     use AggregateRootBehaviour;
 
-    private int $owner_id;
-    private CarbonImmutable $created_at;
+    private \DateTimeImmutable $created_at;
     private string $first_name;
     private string $last_name;
+    private string $folder = 'not_set';
+    private int $owner_id;
+    private array $emails = [];
 
-    public static function make(ContactId $id, int $owner_id, CarbonImmutable|null $created_when): Contact
+    public static function make(ContactId $id, int $owner_id, \DateTimeImmutable|null $created_when): Contact
     {
         $created_when ??= CarbonImmutable::now();
         $contact = new self($id);
@@ -57,13 +59,13 @@ class Contact implements AggregateRoot
         $this->last_name = $event->last_name;
     }
 
-    private function guardCommands(ContactCommand $command)
+    private function guardCommands(ContactCommand $command): void
     {
         $this->contactMustBeCreated($command);
         $this->contactMustBeOwnedByCurrentUser($command);
     }
 
-    private function contactMustBeCreated(ContactCommand $command)
+    private function contactMustBeCreated(ContactCommand $command): void
     {
         if ($command instanceof CreateNewContact && $this->aggregateRootVersion() === 0) {
             return;

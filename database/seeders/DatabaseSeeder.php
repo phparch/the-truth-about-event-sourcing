@@ -53,17 +53,14 @@ class DatabaseSeeder extends Seeder
         $faker = \Faker\Factory::create();
 
         Verbs::createMetadataUsing(fn() => [
-            'when' => CarbonImmutable::now(),
-            'user'=> auth()->user(),
+            'user'=> 'Bob',
             'request' => [
-                "example" => "data",
-                "name" => "John Congdon",
-                "any_other" => "data",
+                "folder" => "Needs Review",
             ],
             "server" => [
-                "IP" => "CLI",
-                "PATH" => "Database Seeder",
-                "METHOD" => "CLI",
+                "IP" => "1.2.3.4",
+                "PATH" => "/api/contact",
+                "METHOD" => "POST",
             ]
         ]);
 
@@ -78,10 +75,11 @@ class DatabaseSeeder extends Seeder
         for ($x = 0; $x <= 1000; $x++)
         {
             ContactUpdatedFirstName::fire(contact_id: 1, first_name: $faker->firstName());
-            print "$x            \r";
-            if ($x % 5000 === 0) {
-                Verbs::commit();
-            }
+        }
+
+        foreach (range(1,100) as $contact_id)
+        {
+            ContactFolderChanged::fire(contact_id: $contact_id, folder: "Needs Review");
         }
 
         print "Done           \n";

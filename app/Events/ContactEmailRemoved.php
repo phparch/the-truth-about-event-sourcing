@@ -17,7 +17,7 @@ class ContactEmailRemoved extends Event
 
     public function validate(ContactState $state): void
     {
-        $this->assert(in_array($this->email, $state->emails), 'Email not found');
+        $this->assert(in_array($this->email, $state->getEmails()), 'Email not found');
     }
 
     public function apply(ContactState $state): void

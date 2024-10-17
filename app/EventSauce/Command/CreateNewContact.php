@@ -20,7 +20,11 @@ class CreateNewContact implements ContactCommand
     public function execute(Contact $contact): array
     {
         return [
-            new ContactCreated($this->contact_id, $this->owner_id, $this->created_at)
+            new ContactCreated(
+                $this->contact_id,
+                $this->owner_id,
+                $this->created_at,
+            )
         ];
     }
 }

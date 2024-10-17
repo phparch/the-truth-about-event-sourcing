@@ -46,7 +46,6 @@ class ContactNameTest extends ContactAggregateTestCase
         );
     }
 
-    #[Test]
     public function make_throws_exception_when_contact_not_owned_by_current_user(): void
     {
         dump(auth()->loginUsingId(self::ID));

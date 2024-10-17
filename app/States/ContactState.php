@@ -10,13 +10,13 @@ class ContactState extends State
 {
     private \DateTimeImmutable|null $created_at = null;
 
-    public string $first_name;
-    public string $last_name;
+    private string $first_name;
+    private string $last_name;
 
-    public string $folder = 'not_set';
-    public int $owner_id;
+    private string $folder = 'not_set';
+    private int $owner_id;
 
-    public array $emails = [];
+    private array $emails = [];
 
     public function getFirstName(): string
     {
@@ -81,5 +81,10 @@ class ContactState extends State
     public function removedEmail(string $email)
     {
         $this->emails = array_values(array_filter($this->emails, fn($e) => $e !== $email));
+    }
+
+    public function getEmails(): array
+    {
+        return $this->emails;
     }
 }
