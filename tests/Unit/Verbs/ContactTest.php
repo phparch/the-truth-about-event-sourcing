@@ -23,18 +23,18 @@ beforeEach(function () {
 });
 
 test('that a contact can be created', function () {
-    ContactState::factory()->create([
-        'id' => $this->contact_id,
-    ]);
-    ContactCreated::fire(contact_id: $this->contact_id, owner_id: $this->user->id, created_at: CarbonImmutable::now());
+    ContactState::factory()->create(['id' => $this->contact_id]);
+    ContactCreated::fire(
+        contact_id: $this->contact_id,
+        owner_id: $this->user->id,
+        created_at: CarbonImmutable::now()
+    );
     $contact_state = ContactState::load($this->contact_id);
     $this->assertSame($this->user->id, $contact_state->getOwnerId());
 });
 
 test('that a contact can have a name and folder', function () {
-    ContactState::factory()->create([
-        'id' => $this->contact_id,
-    ]);
+    ContactState::factory()->create([ 'id' => $this->contact_id]);
     ContactCreated::fire(contact_id: $this->contact_id, owner_id: $this->user->id, created_at: CarbonImmutable::now());
     ContactUpdatedFirstName::fire(contact_id: $this->contact_id, first_name: 'John');
     ContactUpdatedLastName::fire(contact_id: $this->contact_id, last_name: 'Doe');

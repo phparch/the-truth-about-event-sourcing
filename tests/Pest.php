@@ -17,7 +17,7 @@ use Tests\TestCase;
 use Thunk\Verbs\Facades\Verbs;
 
 pest()->extend(Tests\TestCase::class)
- // ->use(Illuminate\Foundation\Testing\RefreshDatabase::class)
+  ->use(Illuminate\Foundation\Testing\RefreshDatabase::class)
     ->in('Feature');
 
 /*
@@ -54,5 +54,5 @@ function something()
 uses(TestCase::class, LazilyRefreshDatabase::class)->in('Feature', 'Unit');
 
 beforeEach(function () {
-    Verbs::commitImmediately();
+  //  Verbs::commitImmediately();
 });

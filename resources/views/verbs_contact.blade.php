@@ -49,7 +49,7 @@
 
                         Add Email: <input
                             type="text"
-                            name="folder"
+                            name="email"
                             value=""
                             placeholder="email@example.com"
                             class="border-1 rounded m-2 placeholder-gray-400 placeholder:italic bg-gray-200 py-1.5 pl-2 text-gray-900 focus:ring-1 sm:text-sm sm:leading-6"
@@ -87,13 +87,13 @@
                         class="p-6 justify-between border border-purple-400 bg-purple-200 rounded-2xl">
                         {{ $event->type }}
                         <div>
-                            Who: {{ $event->metadata['user']['name'] }}
+                            Who: {{ $event->metadata['user'] }}
                         </div>
                         <div>
-                            When: {{ $event->metadata['when'] }}<br/>
+                            What: @php print_r($event->metadata['request']); @endphp <br/>
                         </div>
                         <div>
-                            What: {{ $event->metadata['when'] }}<br/>
+                            When: {{ $event->created_at }}<br/>
                         </div>
                         <div>
                             Where: {{ $event->metadata['server']['IP'] ?? $event->metadata['server']['REMOTE_ADDR'] ?? '' }}

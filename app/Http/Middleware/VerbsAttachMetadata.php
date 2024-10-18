@@ -19,17 +19,14 @@ class VerbsAttachMetadata
     {
         Verbs::createMetadataUsing(fn() => [
             'when' => CarbonImmutable::now(),
-            'user' => auth()->user(),
-            'request' => $request,
-            'server' => $request->server(),
-            /*
+            'user' => auth()->user()->username,
+            'request' => $request->input(),
             'server' => [
                 'IP' => $request->server('REMOTE_ADDR'),
                 'PATH' => $request->server('PATH_INFO'),
                 'METHOD' => $request->server('REQUEST_METHOD'),
                 'REFERER' => $request->server('HTTP_REFERER'),
             ]
-             */
         ]);
         return $next($request);
     }

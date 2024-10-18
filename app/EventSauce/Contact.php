@@ -7,6 +7,7 @@ use App\EventSauce\Command\ContactCommand;
 use App\EventSauce\Command\CreateNewContact;
 use App\EventSauce\Events\ContactCreated;
 use App\EventSauce\Events\FirstNameWasSet;
+use App\EventSauce\Events\FolderWasChanged;
 use App\EventSauce\Events\LastNameWasSet;
 use Carbon\CarbonImmutable;
 use EventSauce\EventSourcing\AggregateRoot;
@@ -57,6 +58,11 @@ class Contact implements AggregateRoot
     public function applyLastNameWasSet(LastNameWasSet $event): void
     {
         $this->last_name = $event->last_name;
+    }
+
+    public function applyFolderWasChanged(FolderWasChanged $event): void
+    {
+        $this->folder = $event->folder;
     }
 
     private function guardCommands(ContactCommand $command): void

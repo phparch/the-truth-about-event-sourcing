@@ -38,6 +38,10 @@ class CleanProjections extends Command
         if ($this->option('confirm')) {
             $this->info('Truncating Contacts...');
             Contact::truncate();
+            $this->info('Truncating Verbs Snapshot...');
+            VerbSnapshot::truncate();
+            $this->info('Truncating Verbs State Events...');
+            VerbStateEvent::truncate();
         } else {
             $this->info('Aborting...');
         }
