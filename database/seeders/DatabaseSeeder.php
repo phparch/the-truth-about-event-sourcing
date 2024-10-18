@@ -68,18 +68,15 @@ class DatabaseSeeder extends Seeder
         {
             ContactState::factory()->create([ 'id' => $contact_id, ]);
             ContactCreated::fire(contact_id: $contact_id, owner_id: $user->id, created_at: CarbonImmutable::now());
+            ContactUpdatedFirstName::fire(contact_id: $contact_id, first_name: $faker->firstName());
             ContactUpdatedName::fire(contact_id: $contact_id, first_name: $faker->firstName(), last_name: $faker->lastName());
-            ContactFolderChanged::fire(contact_id: $contact_id, folder: $faker->word());
+            ContactFolderChanged::fire(contact_id: $contact_id, folder: $faker->city());
         }
 
+        $contact_id = 1;
         for ($x = 0; $x <= 1000; $x++)
         {
-            ContactUpdatedFirstName::fire(contact_id: 1, first_name: $faker->firstName());
-        }
-
-        foreach (range(1,100) as $contact_id)
-        {
-            ContactFolderChanged::fire(contact_id: $contact_id, folder: "Needs Review");
+            ContactUpdatedFirstName::fire(contact_id: $contact_id, first_name: $faker->firstName());
         }
 
         print "Done           \n";

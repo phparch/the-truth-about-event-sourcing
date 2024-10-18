@@ -21,7 +21,10 @@ class ContactUpdatedName extends Event
     {
         $state->setFirstName($this->first_name);
         $state->setLastName($this->last_name);
+    }
 
+    public function handle(ContactState $state): void
+    {
         $contact = Contact::find($this->contact_id);
         $contact->first_name = $this->first_name;
         $contact->last_name = $this->last_name;

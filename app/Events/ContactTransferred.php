@@ -2,6 +2,7 @@
 
 namespace App\Events;
 
+use App\Models\Contact;
 use App\States\ContactState;
 use Thunk\Verbs\Attributes\Autodiscovery\StateId;
 use Thunk\Verbs\Event;
@@ -19,4 +20,10 @@ class ContactTransferred extends Event
     {
         $state->setOwnerId($this->transferred_to);
     }
+
+    public function handle(ContactState $state): void
+    {
+        $contact = Contact::find($this->contact_id);
+        $contact->owner_id = $state->getOwnerId();
+        $contact->save();
 }

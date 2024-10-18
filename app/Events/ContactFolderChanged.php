@@ -19,10 +19,13 @@ class ContactFolderChanged extends Event
     public function apply(ContactState $state): void
     {
         $state->setFolder($this->folder);
+    }
+    public function handle(ContactState $state): void
+    {
         $contact = Contact::find($this->contact_id);
         $contact->folder = $this->folder;
         // Testing must be removed before deploy
-        $contact->folder = 'Needs Review';
+        // $contact->folder = 'Needs Review';
         $contact->save();
     }
 }

@@ -8,15 +8,15 @@ use Thunk\Verbs\State;
 
 class ContactState extends State
 {
-    private \DateTimeImmutable|null $created_at = null;
+    public \DateTimeImmutable|null $created_at = null;
 
-    private string $first_name;
-    private string $last_name;
+    public string $first_name;
+    public string $last_name;
 
-    private string $folder = 'not_set';
-    private int $owner_id;
+    public string $folder = 'not_set';
+    public int $owner_id;
 
-    private array $emails = [];
+    public array $emails = [];
 
     public function getFirstName(): string
     {

@@ -35,6 +35,9 @@ class ContactCreated extends Event
         $state->setOwnerId($this->owner_id);
         $state->setCreatedAt($this->created_at);
 
+    }
+    public function handle(ContactState $state): void
+    {
         Contact::factory()->create([
             'id' => $this->contact_id,
             'owner_id' => $this->owner_id,

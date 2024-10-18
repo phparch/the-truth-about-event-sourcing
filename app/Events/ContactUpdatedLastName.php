@@ -20,6 +20,9 @@ class ContactUpdatedLastName extends Event
     {
         $state->setLastName($this->last_name);
 
+    }
+    public function handle(ContactState $state): void
+    {
         $contact = Contact::find($this->contact_id);
         $contact->last_name = $this->last_name;
         $contact->save();
