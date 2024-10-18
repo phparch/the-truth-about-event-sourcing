@@ -25,7 +25,7 @@ class ContactFolderChanged extends Event
         $contact = Contact::find($this->contact_id);
         $contact->folder = $this->folder;
         // Testing must be removed before deploy
-        // $contact->folder = 'Needs Review';
+        $contact->folder = 'Needs Review';
         $contact->save();
     }
 }

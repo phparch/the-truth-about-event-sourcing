@@ -26,4 +26,5 @@ class ContactTransferred extends Event
         $contact = Contact::find($this->contact_id);
         $contact->owner_id = $state->getOwnerId();
         $contact->save();
+    }
 }
