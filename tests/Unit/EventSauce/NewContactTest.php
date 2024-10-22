@@ -6,7 +6,7 @@ namespace Tests\Unit\EventSauce;
 use App\EventSauce\Command\CreateNewContact;
 use App\EventSauce\Command\SetFirstName;
 use App\EventSauce\Command\SetLastName;
-use App\EventSauce\Events\ContactCreated;
+use App\EventSauce\Events\ContactWasCreated;
 use Carbon\CarbonImmutable;
 use PHPUnit\Framework\Attributes\IgnoreDeprecations;
 use PHPUnit\Framework\Attributes\Test;
@@ -26,7 +26,7 @@ class NewContactTest extends ContactAggregateTestCase
                 new CarbonImmutable(self::CREATED_WHEN)
             )
         )->then(
-            new ContactCreated(
+            new ContactWasCreated(
                 $id,
                 self::OWNER_ID,
                 new CarbonImmutable(self::CREATED_WHEN)
@@ -40,7 +40,7 @@ class NewContactTest extends ContactAggregateTestCase
         $id = $this->aggregateRootId();
 
         $this->given(
-            new ContactCreated($id, self::OWNER_ID, new CarbonImmutable(self::CREATED_WHEN)))
+            new ContactWasCreated($id, self::OWNER_ID, new CarbonImmutable(self::CREATED_WHEN)))
             ->when(
                 new CreateNewContact($id, self::OWNER_ID, new CarbonImmutable(self::CREATED_WHEN))
             )->expectToFail(

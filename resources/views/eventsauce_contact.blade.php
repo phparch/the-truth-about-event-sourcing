@@ -50,7 +50,7 @@
 
                         Add Email: <input
                             type="text"
-                            name="folder"
+                            name="email"
                             value=""
                             placeholder="email@example.com"
                             class="border-1 rounded m-2 placeholder-gray-400 placeholder:italic bg-gray-200 py-1.5 pl-2 text-gray-900 focus:ring-1 sm:text-sm sm:leading-6"

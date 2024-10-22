@@ -8,7 +8,7 @@ use App\EventSauce\Command\SetFirstName;
 use App\EventSauce\Command\SetLastName;
 use App\EventSauce\Command\SetName;
 use App\EventSauce\Contact;
-use App\EventSauce\Events\ContactCreated;
+use App\EventSauce\Events\ContactWasCreated;
 use App\EventSauce\Events\FirstNameWasSet;
 use App\EventSauce\Events\FolderWasChanged;
 use App\EventSauce\Events\LastNameWasSet;
@@ -30,7 +30,7 @@ class ContactNameTest extends ContactAggregateTestCase
         $id = $this->aggregateRootId();
 
         $this->given(
-            new ContactCreated($id, self::OWNER_ID, new CarbonImmutable(self::CREATED_WHEN)))
+            new ContactWasCreated($id, self::OWNER_ID, new CarbonImmutable(self::CREATED_WHEN)))
             ->when(
                 new SetName(self::FIRST_NAME, self::LAST_NAME),
                 new ChangeFolder(self::FOLDER),
@@ -62,7 +62,7 @@ class ContactNameTest extends ContactAggregateTestCase
         dump(auth()->loginUsingId(self::ID));
         dump(auth()->user());
         $this->given(
-            new ContactCreated($this->aggregateRootId(), self::OWNER_ID, new CarbonImmutable(self::CREATED_WHEN))
+            new ContactWasCreated($this->aggregateRootId(), self::OWNER_ID, new CarbonImmutable(self::CREATED_WHEN))
         )->when(
             new SetFirstName(self::FIRST_NAME)
         )->expectToFail(

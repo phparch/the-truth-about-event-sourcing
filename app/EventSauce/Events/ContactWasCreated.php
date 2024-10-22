@@ -8,7 +8,7 @@ use App\EventSauce\ContactId;
 use Carbon\CarbonImmutable;
 use EventSauce\EventSourcing\Serialization\SerializablePayload;
 
-class ContactCreated implements ContactEvent, SerializablePayload
+class ContactWasCreated implements ContactEvent, SerializablePayload
 {
     public function __construct(public readonly ContactId $contact_id, public readonly int $owner_id, public readonly CarbonImmutable $created_at)
     {

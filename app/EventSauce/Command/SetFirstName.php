@@ -5,7 +5,7 @@ namespace App\EventSauce\Command;
 
 use App\EventSauce\Contact;
 use App\EventSauce\ContactId;
-use App\EventSauce\Events\ContactCreated;
+use App\EventSauce\Events\ContactWasCreated;
 use App\EventSauce\Events\FirstNameWasSet;
 use Carbon\CarbonImmutable;
 

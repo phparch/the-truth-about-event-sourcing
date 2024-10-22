@@ -5,7 +5,7 @@ namespace App\EventSauce;
 
 use App\EventSauce\Command\ContactCommand;
 use App\EventSauce\Command\CreateNewContact;
-use App\EventSauce\Events\ContactCreated;
+use App\EventSauce\Events\ContactWasCreated;
 use App\EventSauce\Events\FirstNameWasSet;
 use App\EventSauce\Events\FolderWasChanged;
 use App\EventSauce\Events\LastNameWasSet;
@@ -24,11 +24,16 @@ class Contact implements AggregateRoot
     private int $owner_id;
     private array $emails = [];
 
+    public const CONSUMERS = [
+        ContactConsumer::class,
+        SearchConsumer::class,
+    ];
+
     public static function make(ContactId $id, int $owner_id, \DateTimeImmutable|null $created_when): Contact
     {
         $created_when ??= CarbonImmutable::now();
         $contact = new self($id);
-        $contact->recordThat(new ContactCreated($id, $owner_id, $created_when));
+        $contact->recordThat(new ContactWasCreated($id, $owner_id, $created_when));
 
         return $contact;
     }
@@ -44,7 +49,12 @@ class Contact implements AggregateRoot
         }
     }
 
-    public function applyContactCreated(ContactCreated $event): void
+    public function applyFolderWasChanged(FolderWasChanged $event): void
+    {
+        $this->folder = $event->folder;
+    }
+
+    public function applyContactWasCreated(ContactWasCreated $event): void
     {
         $this->owner_id = $event->owner_id;
         $this->created_at = $event->created_at;
@@ -58,11 +68,6 @@ class Contact implements AggregateRoot
     public function applyLastNameWasSet(LastNameWasSet $event): void
     {
         $this->last_name = $event->last_name;
-    }
-
-    public function applyFolderWasChanged(FolderWasChanged $event): void
-    {
-        $this->folder = $event->folder;
     }
 
     private function guardCommands(ContactCommand $command): void

@@ -1,5 +1,6 @@
 <?php
 
+use App\EventSauce\Command\ChangeFolder;
 use App\EventSauce\Command\SetFirstName;
 use App\EventSauce\Command\SetLastName;
 use App\EventSauce\ContactId;
@@ -39,7 +40,8 @@ Route::post('/eventsauce/contact/{contact_id}', function (string $contact_id, Re
         //not implemented
     }
     if ($request->input('folder') && $contact->getFolder() !== $request->input('folder')) {
-        //not implemented
+        $contact->process(new ChangeFolder($request->input('folder')));
+        $contactRepository->persist($contact);
     }
     if ($request->input('email')) {
         //not implemented

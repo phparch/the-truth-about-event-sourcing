@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\EventSauce\Consumer\ContactConsumer;
+use App\EventSauce\Consumer\ContactSearchConsumer;
 use App\EventSauce\Contact;
 use App\EventSauce\ContactRepository;
 use App\EventSauce\MessageDecorator\HowDecorator;
@@ -48,7 +50,10 @@ class EventSauceServiceProvider extends ServiceProvider
 
         $this->app->singleton(ContactRepository::class, function (Application $app): ContactRepository
         {
-            $messageDispatcher = new SynchronousMessageDispatcher();
+            $messageDispatcher = new SynchronousMessageDispatcher(
+                new ContactConsumer(),
+                new ContactSearchConsumer(),
+            );
 
             $repository = new EventSourcedAggregateRootRepository(
                 Contact::class,

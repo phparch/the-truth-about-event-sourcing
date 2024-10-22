@@ -7,7 +7,7 @@ namespace Tests\Unit\EventSauce;
 use App\EventSauce\Command\ContactCommand;
 use App\EventSauce\Contact;
 use App\EventSauce\ContactId;
-use App\EventSauce\Events\ContactCreated;
+use App\EventSauce\Events\ContactWasCreated;
 use Carbon\CarbonImmutable;
 use EventSauce\EventSourcing\AggregateRootId;
 use EventSauce\EventSourcing\TestUtilities\AggregateRootTestCase;

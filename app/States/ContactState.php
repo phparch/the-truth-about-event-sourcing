@@ -2,8 +2,6 @@
 
 namespace App\States;
 
-use Illuminate\Support\Facades\Auth;
-use Thunk\Verbs\Event;
 use Thunk\Verbs\State;
 
 class ContactState extends State

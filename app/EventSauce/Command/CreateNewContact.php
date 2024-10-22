@@ -5,7 +5,7 @@ namespace App\EventSauce\Command;
 
 use App\EventSauce\Contact;
 use App\EventSauce\ContactId;
-use App\EventSauce\Events\ContactCreated;
+use App\EventSauce\Events\ContactWasCreated;
 use Carbon\CarbonImmutable;
 
 class CreateNewContact implements ContactCommand
@@ -20,7 +20,7 @@ class CreateNewContact implements ContactCommand
     public function execute(Contact $contact): array
     {
         return [
-            new ContactCreated(
+            new ContactWasCreated(
                 $this->contact_id,
                 $this->owner_id,
                 $this->created_at,
