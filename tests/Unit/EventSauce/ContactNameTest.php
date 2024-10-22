@@ -6,6 +6,8 @@ namespace Tests\Unit\EventSauce;
 use App\EventSauce\Command\ChangeFolder;
 use App\EventSauce\Command\SetFirstName;
 use App\EventSauce\Command\SetLastName;
+use App\EventSauce\Command\SetName;
+use App\EventSauce\Contact;
 use App\EventSauce\Events\ContactCreated;
 use App\EventSauce\Events\FirstNameWasSet;
 use App\EventSauce\Events\FolderWasChanged;
@@ -30,14 +32,19 @@ class ContactNameTest extends ContactAggregateTestCase
         $this->given(
             new ContactCreated($id, self::OWNER_ID, new CarbonImmutable(self::CREATED_WHEN)))
             ->when(
-                new SetFirstName(self::FIRST_NAME),
-                new SetLastName(self::LAST_NAME),
+                new SetName(self::FIRST_NAME, self::LAST_NAME),
                 new ChangeFolder(self::FOLDER),
             )->then(
                 new FirstNameWasSet(self::FIRST_NAME),
                 new LastNameWasSet(self::LAST_NAME),
                 new FolderWasChanged(self::FOLDER),
             );
+
+        $aggregate = $this->retrieveAggregateRoot($id);
+        \assert($aggregate instanceof Contact);
+        $this->assertSame(self::FIRST_NAME, $aggregate->getFirstName());
+        $this->assertSame(self::LAST_NAME, $aggregate->getLastName());
+        $this->assertSame(self::FOLDER, $aggregate->getFolder());
     }
 
     #[Test]

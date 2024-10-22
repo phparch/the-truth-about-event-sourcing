@@ -103,7 +103,7 @@ class Contact implements AggregateRoot
 
     public function getFolder(): string
     {
-        return 'not defined';
+        return $this->folder;
     }
 
     public function getEmails(): array

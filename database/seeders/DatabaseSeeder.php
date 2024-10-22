@@ -40,6 +40,7 @@ class DatabaseSeeder extends Seeder
         $start = microtime(true);
         $this->createVerbsContacts($user);
         $verbs = microtime(true) - $start;
+
         $start = microtime(true);
         $this->createEventSauceContacts($user);
         $eventsauce = microtime(true) - $start;
