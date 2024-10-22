@@ -55,7 +55,6 @@ class DatabaseSeeder extends Seeder
         Verbs::createMetadataUsing(fn() => [
             'user'=> 'Bob',
             'request' => [
-                "folder" => "Needs Review",
             ],
             "server" => [
                 "IP" => "127.0.0.1",
