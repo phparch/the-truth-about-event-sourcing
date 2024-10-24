@@ -46,3 +46,6 @@ To replay events, we need to run the command
 php artisan app:clean-projections
 php artisan verbs:replay
 ```
+
+## Slides
+[Available on Google Slides](https://docs.google.com/presentation/d/e/2PACX-1vTeII2r9H7ui1xg2i-GUox3-v0oNR1J6gu-fx8Q5N7eT1D-pdvzCWAqinCabNC_FvekhHozgbBy43qX/pub?start=false&loop=false&delayms=3000)
