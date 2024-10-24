@@ -6,11 +6,11 @@ use App\Events\ContactCreated;
 use App\Events\ContactFolderChanged;
 use App\Events\ContactUpdatedFirstName;
 use App\Events\ContactUpdatedName;
+use App\EventSauce\Command\ChangeFolder;
 use App\EventSauce\Command\SetFirstName;
 use App\EventSauce\Command\SetLastName;
 use App\EventSauce\ContactId;
 use App\EventSauce\ContactRepository;
-use App\Models\Contact;
 use App\Models\User;
 use App\States\ContactState;
 use Carbon\CarbonImmutable;
@@ -70,7 +70,7 @@ class DatabaseSeeder extends Seeder
             ContactCreated::fire(contact_id: $contact_id, owner_id: $user->id, created_at: CarbonImmutable::now());
             ContactUpdatedFirstName::fire(contact_id: $contact_id, first_name: $faker->firstName());
             ContactUpdatedName::fire(contact_id: $contact_id, first_name: $faker->firstName(), last_name: $faker->lastName());
-            ContactFolderChanged::fire(contact_id: $contact_id, folder: $faker->city());
+            ContactFolderChanged::fire(contact_id: $contact_id, folder: 'New Contacts');
         }
 
         $contact_id = 1;
@@ -93,6 +93,7 @@ class DatabaseSeeder extends Seeder
 
             $contact->process(new SetFirstName($faker->firstName()));
             $contact->process(new SetLastName($faker->lastName()));
+            $contact->process(new ChangeFolder('New Contacts'));
 
             $this->contactRepository->persist($contact);
         }
